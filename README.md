@@ -12,7 +12,7 @@
 
 1. Clone this repository into your GitHub desktop application.
 2. Open up the folder of the repo in your preferred IDE (i.e. Visual Studio Code).
-3. In the root folder (ITWS4500-team8), make sure you have npm installed using `npm install`.
+3. In the root folder ("Vaultify"), make sure you have npm installed using `npm install`.
 4. If `npm start` gives you errors, please install `npm install express`, `npm install cors`, `npm install bootstrap`, `npm install concurrently`, and `npm install react react-dom` accordingly. Else, continue to step 5.
 5. Then, if any changes were made to the components, run the command `npm run build` in the client folder before running `npm start` again.
 
