@@ -1,6 +1,6 @@
 # 🎵 Vaultify 🎵
 
-<span style="color:blue">***Vaultify** is your **effortless solution** to automatically track and preserve your **monthly music journey** -- creating personalized playlists that capture your evolving taste without the hassle.*</span>
+<span style="color:blue"><strong>Vaultify</strong> is your <strong>effortless solution</strong> to automatically track and preserve your <strong>monthly music journey</strong> -- creating personalized playlists that capture your evolving taste without the hassle.</span>
 
 **👥 Team Members:** Matthew Bui, Michael Lam, Dillon (Hongwei) Li, Michelle Li, Thomas Orifici
 - [Project Page](http://spotify.com/)
