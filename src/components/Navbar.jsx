@@ -13,22 +13,22 @@ const Navbar = () => {
       </div>
       <ul>
         <li>
-          <NavLink to="/profile" activeClassName="active">Profile</NavLink>
+          <NavLink to="/profile" className={({ isActive }) => (isActive ? 'active' : '')}>Profile</NavLink>
         </li>
         <li>
-          <NavLink to="/playlist-maker" activeClassName="active">Playlist Maker</NavLink>
+          <NavLink to="/playlist-maker" className={({ isActive }) => (isActive ? 'active' : '')}>Playlist Maker</NavLink>
         </li>
         <li>
-          <NavLink to="/vault" activeClassName="active">Vault</NavLink>
+          <NavLink to="/vault" className={({ isActive }) => (isActive ? 'active' : '')}>Vault</NavLink>
         </li>
         <li>
-          <NavLink to="/timeline" activeClassName="active">Timeline</NavLink>
+          <NavLink to="/timeline" className={({ isActive }) => (isActive ? 'active' : '')}>Timeline</NavLink>
         </li>
         <li>
-          <NavLink to="/chatbot" activeClassName="active">Chatbot</NavLink>
+          <NavLink to="/chatbot" className={({ isActive }) => (isActive ? 'active' : '')}>Chatbot</NavLink>
         </li>
         <li>
-          <NavLink to="/achievements" activeClassName="active">Achievements</NavLink>
+          <NavLink to="/achievements" className={({ isActive }) => (isActive ? 'active' : '')}>Achievements</NavLink>
         </li>
       </ul>
     </div>

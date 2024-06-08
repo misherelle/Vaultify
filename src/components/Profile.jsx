@@ -1,5 +1,4 @@
-import React, { useContext } from 'react';
-import { AuthContext } from './AuthContext';
+import React from 'react';
 
 const Profile = () => {
   const profile = JSON.parse(localStorage.getItem('profile'));

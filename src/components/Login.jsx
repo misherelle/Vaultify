@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from './AuthContext';
 
-const clientId = "18b9ce009b314b9eb359758d436b7b2b";
+const clientId = "6c827ce574374320a32cd885e55b45fc";
 const redirectUri = "http://localhost:3000/login";
 
 const Login = () => {
@@ -15,16 +15,23 @@ const Login = () => {
   useEffect(() => {
     const fetchProfile = async (token) => {
       try {
+        console.log('Fetching profile with token:', token); // Debug log
         const response = await fetch('https://api.spotify.com/v1/me', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
         const data = await response.json();
-        setProfile(data);
-        localStorage.setItem('profile', JSON.stringify(data));
-        setIsLoggedIn(true);  // Update the login state
-        navigate('/profile');   // Redirect to Profile after logging in
+        console.log('Profile data:', data); // Debug log
+
+        if (response.ok) {
+          setProfile(data);
+          localStorage.setItem('profile', JSON.stringify(data));
+          setIsLoggedIn(true);  // Update the login state
+          navigate('/profile');   // Redirect to Profile after logging in
+        } else {
+          console.error('Error fetching profile:', data);
+        }
       } catch (error) {
         console.error('Error fetching profile:', error);
       }
@@ -49,8 +56,14 @@ const Login = () => {
           body: params,
         });
         const data = await response.json();
-        localStorage.setItem('accessToken', data.access_token);
-        fetchProfile(data.access_token);
+        console.log('Access token data:', data); // Debug log
+
+        if (response.ok) {
+          localStorage.setItem('accessToken', data.access_token);
+          fetchProfile(data.access_token);
+        } else {
+          console.error('Error fetching access token:', data);
+        }
       } catch (error) {
         console.error('Error fetching access token:', error);
       }
@@ -62,6 +75,7 @@ const Login = () => {
       const savedAccessToken = localStorage.getItem('accessToken');
       const savedProfile = localStorage.getItem('profile');
       if (savedAccessToken && savedProfile) {
+        console.log('Using saved access token and profile'); // Debug log
         setProfile(JSON.parse(savedProfile));
         setIsLoggedIn(true);  // Update the login state
         navigate('/profile');   // Redirect to Profile
@@ -108,6 +122,13 @@ const Login = () => {
     });
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('profile');
+    setIsLoggedIn(false);
+    navigate('/');
+  };
+
   return (
     <div>
       <h1>Login to Spotify</h1>
@@ -116,15 +137,20 @@ const Login = () => {
           <h2>Logged in as {profile.display_name}</h2>
           <p>User ID: {profile.id}</p>
           <p>Email: {profile.email}</p>
-          <p>
-            Spotify URI: <a href={profile.external_urls.spotify}>{profile.uri}</a>
-          </p>
+          {profile.external_urls && (
+            <p>
+              Spotify URI: <a href={profile.external_urls.spotify}>{profile.external_urls.spotify}</a>
+            </p>
+          )}
           <p>
             Link: <a href={profile.href}>{profile.href}</a>
           </p>
-          <p>
-            Profile Image: <img src={profile.images[0]?.url} alt="Profile" width="200" />
-          </p>
+          {profile.images && profile.images.length > 0 && (
+            <p>
+              Profile Image: <img src={profile.images[0].url} alt="Profile" width="200" />
+            </p>
+          )}
+          <button onClick={handleLogout}>Logout</button>
         </div>
       ) : (
         <p>Loading...</p>
