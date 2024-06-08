@@ -1,25 +1,15 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>My Spotify Profile</title>
-    <script src="src/script.js" type="module"></script>
-</head>
-<body>
-    <h1>Display your Spotify profile data</h1>
-
-    <section id="profile">
-        <h2>Logged in as <span id="displayName">Loading...</span></h2>
-        <div id="avatar">
-            <img id="profileImage" src="" alt="Profile Image" style="display:none;">
-        </div>
-        <ul>
-            <li>User ID: <span id="id">Loading...</span></li>
-            <li>Email: <span id="email">Loading...</span></li>
-            <li>Spotify URI: <a id="uri" href="#">Loading...</a></li>
-            <li>Link: <a id="url" href="#">Loading...</a></li>
-            <li>Profile Image: <span id="imgUrl">Loading...</span></li>
-        </ul>
-    </section>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Vaultify</title>
+        <link rel="icon" type="image/png" sizes="32x32" href="resources/page-icon.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="resources/page-icon.png">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    </head>
+    <body>
+        <div id="root"></div>
+        <script type="module" src="/src/main.jsx"></script>
+    </body>
 </html>

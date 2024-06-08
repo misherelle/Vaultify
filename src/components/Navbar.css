@@ -15,17 +15,35 @@ body {
 
 .navbar {
   background-color: #333;
-  width: 200px; /* Adjust width as needed */
+  width: 220px; /* Adjust width as needed */
   height: 100vh; /* Full height */
   position: fixed; /* Fix to left side */
   top: 0;
   left: 0;
 }
 
+.navbar-logo {
+  width: 100%;
+  text-align: center;
+  margin-top: 100px;
+}
+
+.navbar-logo img {
+  width: 125px; /* Adjust size as needed */
+}
+
+.navbar ul {
+  list-style-type: none;
+  margin: 0;
+  padding-bottom: 100px !important;
+  width: 100%;
+}
+
 .navbar ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
+  width: 100%;
 }
 
 .navbar li {
@@ -33,24 +51,23 @@ body {
 }
 
 .navbar li a {
-  display: block;
+  display: block; /* Ensure the a tag takes up the full width */
+  width: 100%; /* Ensure the a tag takes up the full width */
   color: white;
   text-align: left; /* Align text to the left */
   padding: 14px 16px;
   text-decoration: none;
 }
 
-.navbar li a:hover {
+.navbar li a:hover,
+.navbar li a.active {
   background-color: #111;
 }
 
 .main-content {
-  margin-left: 200px; /* Same as navbar width */
+  margin-left: 220px; /* Same as navbar width */
   padding: 20px;
   flex-grow: 1;
-  display: flex;
-  justify-content: center; /* Center content horizontally */
-  align-items: center; /* Center content vertically */
   height: 100vh; /* Ensure the main content takes full height */
   overflow: auto; /* Allow scrolling if content overflows */
 }
