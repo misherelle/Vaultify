@@ -1,17 +1,16 @@
-// src/App.js
 import React, { useContext } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, AuthContext } from './components/AuthContext';
 import Welcome from './components/Welcome';
 import Login from './components/Login';
 import Layout from './components/Layout';
 import PlaylistMaker from './components/PlaylistMaker';
 import Vault from './components/Vault';
-import Timeline from './components/Timeline';
-import Chatbot from './components/Chatbot';
-import Achievements from './components/Achievements';
-import ProtectedRoute from './components/ProtectedRoute';
+import AboutUs from './components/AboutUs';
+import Home from './components/Home';
 import Profile from './components/Profile';
+import Settings from './components/Settings';
+import ProtectedRoute from './components/ProtectedRoute';
 import './App.css';
 
 const AppRoutes = () => {
@@ -19,19 +18,19 @@ const AppRoutes = () => {
 
   return (
     <Routes>
-      <Route path="/" element={<Welcome />} />
+      <Route path="/" element={isLoggedIn ? <Navigate to="/home" /> : <Welcome />} />
       <Route path="/login" element={<Login />} />
       <Route path="/" element={<Layout />}>
         <Route 
-          path="profile" 
+          path="home" 
           element={
             <ProtectedRoute>
-              <Login />
+              <Home />
             </ProtectedRoute>
           } 
         />
         <Route 
-          path="playlist-maker" 
+          path="playlist-generator" 
           element={
             <ProtectedRoute>
               <PlaylistMaker />
@@ -47,27 +46,34 @@ const AppRoutes = () => {
           } 
         />
         <Route 
-          path="timeline" 
+          path="about" 
           element={
             <ProtectedRoute>
-              <Timeline />
+              <AboutUs />
             </ProtectedRoute>
           } 
         />
         <Route 
-          path="chatbot" 
+          path="profile" 
           element={
             <ProtectedRoute>
-              <Chatbot />
+              <Profile />
             </ProtectedRoute>
           } 
         />
         <Route 
-          path="achievements" 
+          path="settings" 
           element={
             <ProtectedRoute>
-              <Achievements />
+              <Settings />
             </ProtectedRoute>
+          } 
+        />
+        {/* Redirect to home if no other route matches */}
+        <Route 
+          path="*" 
+          element={
+            isLoggedIn ? <Navigate to="/home" /> : <Navigate to="/login" />
           } 
         />
       </Route>

@@ -1,34 +1,34 @@
+// src/components/Login.jsx
 import React, { useEffect, useState, useContext } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from './AuthContext';
 
-const clientId = "6c827ce574374320a32cd885e55b45fc";
-const redirectUri = "http://localhost:3000/login";
+const clientId = "18b9ce009b314b9eb359758d436b7b2b";
+const redirectUri = "http://localhost:3003/login";
 
 const Login = () => {
-  const [profile, setProfile] = useState(null);
+  const [profile, setProfileState] = useState(null);
   const location = useLocation();
   const navigate = useNavigate();
-  const { setIsLoggedIn } = useContext(AuthContext);
+  const { setIsLoggedIn, setProfile } = useContext(AuthContext);
   const code = new URLSearchParams(location.search).get('code');
 
   useEffect(() => {
     const fetchProfile = async (token) => {
       try {
-        console.log('Fetching profile with token:', token); // Debug log
         const response = await fetch('https://api.spotify.com/v1/me', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
         const data = await response.json();
-        console.log('Profile data:', data); // Debug log
 
         if (response.ok) {
-          setProfile(data);
+          setProfileState(data);
           localStorage.setItem('profile', JSON.stringify(data));
+          setProfile(data);  // Set profile in context
           setIsLoggedIn(true);  // Update the login state
-          navigate('/profile');   // Redirect to Profile after logging in
+          navigate('/home');   // Redirect to Profile after logging in
         } else {
           console.error('Error fetching profile:', data);
         }
@@ -56,7 +56,6 @@ const Login = () => {
           body: params,
         });
         const data = await response.json();
-        console.log('Access token data:', data); // Debug log
 
         if (response.ok) {
           localStorage.setItem('accessToken', data.access_token);
@@ -75,15 +74,15 @@ const Login = () => {
       const savedAccessToken = localStorage.getItem('accessToken');
       const savedProfile = localStorage.getItem('profile');
       if (savedAccessToken && savedProfile) {
-        console.log('Using saved access token and profile'); // Debug log
-        setProfile(JSON.parse(savedProfile));
+        setProfileState(JSON.parse(savedProfile));
+        setProfile(JSON.parse(savedProfile));  // Set profile in context
         setIsLoggedIn(true);  // Update the login state
-        navigate('/profile');   // Redirect to Profile
+        navigate('/home');   // Redirect to Profile
       } else {
         redirectToAuthCodeFlow();
       }
     }
-  }, [code, setIsLoggedIn, navigate]);
+  }, [code, setIsLoggedIn, setProfile, navigate]);
 
   const redirectToAuthCodeFlow = async () => {
     const verifier = generateCodeVerifier(128);
